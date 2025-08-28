@@ -1,0 +1,20 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-4"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Welcome, {{ user.username }}!</h5>
+                            <p class="card-text">Manage your shipments and track deliveries from here.</p>
+                            <a href="{% url 'tracking' %}" class="btn btn-primary"><i class="fas fa-search me-1"></i> Track a Package</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+    <section class="hero text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold">Fast, Secure, and Affordable Delivery Solutions</h1>
+            <p class="lead">Specializing in parcels and bulk packages with same-day options.</p>
+            <a href="#services" class="btn btn-primary btn-lg me-2">
+                <i class="fas fa-shipping-fast"></i> Send a Package
+            </a>
+            <a href="#tracking" class="btn btn-secondary btn-lg">
+                <i class="fas fa-search-location"></i> Track Delivery
+            </a>
+            <div class="mt-4">
+                <img src="https://via.placeholder.com/300x200?text=Delivery+Van" alt="Delivery Van" class="me-2 rounded shadow">
+                <img src="https://via.placeholder.com/300x200?text=Truck" alt="Truck" class="me-2 rounded shadow">
+                <img src="https://via.placeholder.com/300x200?text=Courier" alt="Courier" class="rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section services py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5"><i class="fas fa-concierge-bell text-primary"></i> Our Services</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-bolt fa-3x text-warning mb-3"></i>
+                    <h3>Same-Day Delivery</h3>
+                    <p>Get your parcels delivered on the same day within city limits.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-boxes fa-3x text-success mb-3"></i>
+                    <h3>Bulk Shipment Handling</h3>
+                    <p>Efficient handling of large volumes with secure packaging.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="fas fa-globe fa-3x text-info mb-3"></i>
+                    <h3>Nationwide & International</h3>
+                    <p>Deliver anywhere in the country or abroad with ease.</p>
+                </div>
+            </div>
+            <div class="row text-center mt-4">
+                <div class="col-md-6 mb-4">
+                    <i class="fas fa-map-marked-alt fa-2x text-danger mb-2"></i>
+                    <h3>Real-Time Tracking</h3>
+                    <p>Track your package every step of the way.</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <i class="fas fa-headset fa-2x text-primary mb-2"></i>
+                    <h3>Reliable Customer Support</h3>
+                    <p>24/7 support for all your queries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section pricing py-5">
+        <div class="container">
+            <h2 class="text-center mb-5"><i class="fas fa-tags text-success"></i> Pricing</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-box fa-2x text-primary mb-3"></i>
+                            <h5 class="card-title">Standard Parcel</h5>
+                            <p class="card-text">$5 - $10 per kg</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-truck fa-2x text-danger mb-3"></i>
+                            <h5 class="card-title">Same-Day</h5>
+                            <p class="card-text">$15+ per package</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-dolly-flatbed fa-2x text-warning mb-3"></i>
+                            <h5 class="card-title">Bulk Shipment</h5>
+                            <p class="card-text">Custom quotes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tracking" class="section tracking py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4"><i class="fas fa-search-location text-white"></i> Track Your Delivery</h2>
+            <form method="post" class="row justify-content-center">
+                {% csrf_token %}
+                <div class="col-md-6 mb-3">
+                    <input type="text" name="tracking_id" class="form-control form-control-lg" placeholder="Enter Tracking ID" required>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <button type="submit" class="btn btn-primary btn-md w-100">
+                        <i class="fas fa-search"></i> Track
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section testimonials py-5">
+        <div class="container">
+            <h2 class="text-center mb-4"><i class="fas fa-comments text-info"></i> Customer Testimonials</h2>
+            <div class="row">
+                {% for testimonial in testimonials %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card shadow-sm border-0 h-100">
+                            <div class="card-body">
+                                <p class="card-text">"{{ testimonial.content }}"</p>
+                                <h6 class="card-subtitle text-muted">- {{ testimonial.name }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center">No testimonials yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
