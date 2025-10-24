@@ -1,0 +1,106 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="content-main">
+    <h2>{% trans "Logistics Dashboard" %}</h2>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-header">Total Users</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ total_users }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-header">Registered Admins</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ registered_admins }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-header">Total Deliveries</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ total_deliveries }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-dark">
+                <div class="card-header">Dispatched Packages</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ dispatched_packages }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-danger text-white">
+                <div class="card-header">Pending Deliveries</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ pending_deliveries }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-secondary text-white">
+                <div class="card-header">Daily Dispatch</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ daily_dispatch }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-dark text-white">
+                <div class="card-header">Weekly Dispatch</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ weekly_dispatch }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light text-dark">
+                <div class="card-header">Monthly Dispatch</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ monthly_dispatch }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-header">Total Weight on Transit (kg)</div>
+                <div class="card-body">
+                    <h3 class="card-title">{{ total_weight_on_transit }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>{% trans "Total Amount per Customer" %}</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Total Amount (₦)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customer_amounts %}
+                <tr>
+                    <td>{{ customer.username }}</td>
+                    <td>{{ customer.total_amount|floatformat:2 }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No customers with shipments.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ block.super }}
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    color: #333; 
+    background-color: #F9F9F3;
+    line-height: 1.6;
+}
+
+:root {
+  --animate-duration: 800ms;
+  --animate-delay: 0.9s;
+}
+
+/* Hero Section */
+.hero { 
+    background: linear-gradient(135deg, #006ECD, #4A90E2); 
+    color: white; 
+    padding: 100px 0; 
+    text-align: center; 
+}
+.hero h1 { 
+    font-size: 3rem; 
+    font-weight: 700; 
+    margin-bottom: 15px;
+}
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Buttons */
+.btn-primary { 
+    background-color: 		#FF9700; 
+    border-color: 		#FF9700; 
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-secondary { 
+    background-color: #333333; 
+    border-color: #333333; 
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+.btn-secondary:hover {
+    background-color: #F9F9F3;
+    color:#000000;
+    border: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+/* Sections */
+.section { 
+    padding: 0; 
+}
+.pricing, .services, .testimonials, .signup, .tracking{ 
+    background-color: #F9F9F3; 
+}
+
+/* Tracking Section */
+.tracking { 
+    background: linear-gradient(135deg, #FF9700, #FAA635); 
+    color: #000; 
+    padding: 80px 0;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.tracking h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.tracking form {
+    background: #fff;
+    color: #333;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.tracking input {
+    border-radius: 6px;
+}
+
+/* Cards / Boxes */
+.card, .box {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #F9F9F3;
+    color: #333333;
+    margin: 10px;
+    border-color: 	#F9F9F3;
+}
+
+.card:hover, .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+
+/* General Images */
+img { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 10px;
+}
+
+/* Testimonials Section */
+.testimonials .testimonial-card {
+    border-radius: 15px;
+    min-height: 350px;
+}
+
+.testimonials .testimonial-text {
+    font-style: italic;
+    color: #555;
+}
+
+.blockquote {
+    font-size: 1.5rem;
+    line-height: 1.6;
+}
+
+/*services*/
+
+.form-control:focus {
+    border-color: #FF9700; 
+    box-shadow: none; 
+    outline: 0; /* Remove default outline */
+}

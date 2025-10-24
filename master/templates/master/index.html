@@ -3,7 +3,7 @@
 {% block content %}
     <section class="hero text-center py-5">
         <div class="container">
-            <h1 class="fw-bold">Fast, Secure, and Affordable Delivery Solutions</h1>
+            <h1 class="fw-bold" data-aos="zoom-in-up" data-aos-anchor-placement="center-center" data-aos-duration="3000">Fast, Secure, and Smart Shipping Solutions</h1>
             <p class="lead">Specializing in parcels and bulk packages with same-day options.</p>
             <a href="#services" class="btn btn-primary btn-lg me-2">
                 <i class="fas fa-shipping-fast"></i> Send a Package
@@ -11,44 +11,38 @@
             <a href="#tracking" class="btn btn-secondary btn-lg">
                 <i class="fas fa-search-location"></i> Track Delivery
             </a>
-            <div class="mt-4">
-                <img src="https://via.placeholder.com/300x200?text=Delivery+Van" alt="Delivery Van" class="me-2 rounded shadow">
-                <img src="https://via.placeholder.com/300x200?text=Truck" alt="Truck" class="me-2 rounded shadow">
-                <img src="https://via.placeholder.com/300x200?text=Courier" alt="Courier" class="rounded shadow">
-            </div>
+            <!-- <div class="mt-4">
+                {% load static %}
+                <img src="{% static 'images/delivery.jpg' %}" width="200" height="400" alt="Delivery Van" class="me-2 rounded shadow">
+                <img src="{% static 'images/container.jpg' %}" width="200" alt="Truck" class="me-2 rounded shadow">
+                <img src="{% static 'images/package.jpg' %}" width="200" alt="Courier" class="me-2 rounded shadow">
+            </div> -->
         </div>
     </section>
 
-    <section id="services" class="section services py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5"><i class="fas fa-concierge-bell text-primary"></i> Our Services</h2>
-            <div class="row text-center">
-                <div class="col-md-4 mb-4">
-                    <i class="fas fa-bolt fa-3x text-warning mb-3"></i>
+    <section id="services" class="section services py-5">
+        <div class="container-fluid d-flex flex-column">
+            <h2 class="text-center mb-5"><i class="fas fa-concierge-bell" style="color: #006ECD;"></i> Our Services</h2>
+            <div class="row text-center mx-4 justify-content-center">
+                <div class="col-md-4 mb-4 card p-3" data-aos="zoom-out-right" data-aos-duration="3000"> 
+                    <img src="{% static 'images/gauge.svg' %}"  alt="" class="align-self-center mb-4" width="50px" height="50px">
                     <h3>Same-Day Delivery</h3>
-                    <p>Get your parcels delivered on the same day within city limits.</p>
+                    <p>Get your parcels delivered on the same day within the city.</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <i class="fas fa-boxes fa-3x text-success mb-3"></i>
+                <div class="col-md-4 mb-4 card p-3" data-aos="zoom-out-left"  data-aos-duration="3000">
+                     <img src="{% static 'images/truck.svg' %}"  alt="" class="align-self-center mb-4" width="50px" height="50px">
                     <h3>Bulk Shipment Handling</h3>
                     <p>Efficient handling of large volumes with secure packaging.</p>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <i class="fas fa-globe fa-3x text-info mb-3"></i>
-                    <h3>Nationwide & International</h3>
-                    <p>Deliver anywhere in the country or abroad with ease.</p>
+                 <div class="col-md-4 mb-4 card p-3" data-aos="flip-up" data-aos-duration="3000">
+                    <img src="{% static 'images/map-pin.svg' %}"  alt="" class="align-self-center mb-4" width="50px" height="50px">
+                    <h3>Real time tracking</h3>
+                    <p>Real-time tracking information for your packages</p>
                 </div>
-            </div>
-            <div class="row text-center mt-4">
-                <div class="col-md-6 mb-4">
-                    <i class="fas fa-map-marked-alt fa-2x text-danger mb-2"></i>
-                    <h3>Real-Time Tracking</h3>
-                    <p>Track your package every step of the way.</p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <i class="fas fa-headset fa-2x text-primary mb-2"></i>
-                    <h3>Reliable Customer Support</h3>
-                    <p>24/7 support for all your queries.</p>
+                 <div class="col-md-4 mb-4 card p-3" data-aos="flip-down" data-aos-duration="3000">
+                    <img src="{% static 'images/leaf.svg' %}"  alt="" class="align-self-center mb-4" width="50px" height="50px">
+                    <h3>Eco-Friendly Shipping</h3>
+                    <p>Carbon-neutral delivery options for a sustainable future</p>
                 </div>
             </div>
         </div>
@@ -56,30 +50,30 @@
 
     <section id="pricing" class="section pricing py-5">
         <div class="container">
-            <h2 class="text-center mb-5"><i class="fas fa-tags text-success"></i> Pricing</h2>
+            <h2 class="text-center mb-5"><i class="fas fa-tags" style="color: #006ECD;"></i> Pricing</h2>
             <div class="row">
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="zoom-out-right" data-aos-duration="3000">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
-                            <i class="fas fa-box fa-2x text-primary mb-3"></i>
+                            <img src="{% static 'images/parcel.svg' %}" alt="" width="40px" height="40px" class="mb-3">
                             <h5 class="card-title">Standard Parcel</h5>
-                            <p class="card-text">$5 - $10 per kg</p>
+                            <p class="card-text">#5500 - #7999 per kg</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="zoom-in-up" data-aos-anchor-placement="center-center" data-aos-duration="3000">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
-                            <i class="fas fa-truck fa-2x text-danger mb-3"></i>
+                            <img src="{% static 'images/calendar-day.svg' %}" alt="" width="40px" height="40px" class="mb-3">
                             <h5 class="card-title">Same-Day</h5>
-                            <p class="card-text">$15+ per package</p>
+                            <p class="card-text">#25,000 per package</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4" data-aos="zoom-out-left" data-aos-duration="3000">
                     <div class="card shadow-sm border-0 h-100">
                         <div class="card-body text-center">
-                            <i class="fas fa-dolly-flatbed fa-2x text-warning mb-3"></i>
+                            <img src="{% static 'images/truck-ramp-box.svg' %}" alt="" width="40px" height="40px" class="mb-3">
                             <h5 class="card-title">Bulk Shipment</h5>
                             <p class="card-text">Custom quotes</p>
                         </div>
@@ -89,9 +83,9 @@
         </div>
     </section>
 
-    <section id="tracking" class="section tracking py-5 bg-light">
+    <section id="tracking" class="section tracking py-5">
         <div class="container">
-            <h2 class="text-center mb-4"><i class="fas fa-search-location text-white"></i> Track Your Delivery</h2>
+            <h2 class="text-center mb-4" data-aos="zoom-in"><i class="fas fa-search-location text-white"></i> Track Your Delivery</h2>
             <form method="post" class="row justify-content-center">
                 {% csrf_token %}
                 <div class="col-md-6 mb-3">
@@ -106,23 +100,94 @@
         </div>
     </section>
 
-    <section id="testimonials" class="section testimonials py-5">
-        <div class="container">
-            <h2 class="text-center mb-4"><i class="fas fa-comments text-info"></i> Customer Testimonials</h2>
-            <div class="row">
-                {% for testimonial in testimonials %}
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm border-0 h-100">
-                            <div class="card-body">
-                                <p class="card-text">"{{ testimonial.content }}"</p>
-                                <h6 class="card-subtitle text-muted">- {{ testimonial.name }}</h6>
+<section id="testimonials" class="section testimonials py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">
+            <i class="fas fa-comments" style="color: #006ECD;"></i> What Our Clients Say
+        </h2>
+        <div class="row align-items-center">
+            
+            <!-- Carousel Column -->
+            <div class="col-lg-7" data-aos="fade-down" data-aos-duration="3000">
+                <div id="testimonialCarousel" class="carousel slide shadow-lg rounded" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        
+                        <!-- Testimonial 1 -->
+                        <div class="carousel-item active">
+                            <div class="testimonial-card p-5 text-center bg-white">
+                                <i class="fas fa-user-circle fa-5x text-secondary mb-3"></i>
+                                <p class="testimonial-text fs-4">"The service was seamless and delivery was right on time."</p>
+                                <h5 class="testimonial-name mt-3">- John Doe</h5>
+                                <div class="testimonial-rating mt-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
                             </div>
                         </div>
+                        
+                        <!-- Testimonial 2 -->
+                        <div class="carousel-item">
+                            <div class="testimonial-card p-5 text-center bg-white">
+                                <i class="fas fa-user-circle fa-5x text-secondary mb-3"></i>
+                                <p class="testimonial-text fs-4">"I tracked my shipment with ease. Excellent user-friendly platform!"</p>
+                                <h5 class="testimonial-name mt-3">- Sarah Williams</h5>
+                                <div class="testimonial-rating mt-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Testimonial 3 -->
+                        <div class="carousel-item">
+                            <div class="testimonial-card p-5 text-center bg-white">
+                                <i class="fas fa-user-circle fa-5x text-secondary mb-3"></i>
+                                <p class="testimonial-text fs-4">"Great experience! Customer service was top-notch and very responsive."</p>
+                                <h5 class="testimonial-name mt-3">- Michael Brown</h5>
+                                <div class="testimonial-rating mt-2">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                {% empty %}
-                    <p class="text-center">No testimonials yet.</p>
-                {% endfor %}
+                    
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Blockquote Column -->
+            <div class="col-lg-5 mt-4 mt-lg-0">
+                <div class="blockquote text-white p-3 rounded shadow-lg">
+                    <!-- <p class="mb-4 fs-2 fw-bold text-secondary">
+                        "Our clients love us for reliability, speed, and transparency.  
+                        Their words inspire us to do better every day."
+                    </p> -->
+                    <img src="{% static 'images/team.jpg' %}" width="500" alt="">
+                      <!-- <footer class=" text-dark mt-2">
+                        Team member
+                    </footer> -->
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+
 {% endblock %}

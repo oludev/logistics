@@ -3,15 +3,46 @@
 {% block content %}
     <section class="section">
         <div class="container">
-            <h2 class="text-center mb-4"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</h2>
+            <h2 class="text-center mb-4"><i class="fas fa-tachometer-alt me-2"></i> Your Dashboard</h2>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <div class="card">
+                    <div class="card" >
                         <div class="card-body">
                             <h5 class="card-title">Welcome, {{ user.username }}!</h5>
                             <p class="card-text">Manage your shipments and track deliveries from here.</p>
                             <a href="{% url 'tracking' %}" class="btn btn-primary"><i class="fas fa-search me-1"></i> Track a Package</a>
                         </div>
+                    </div>
+                    <h3 class="mt-4">Your Shipments</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tracking ID</th>
+                                    <th>Status</th>
+                                    <th>Current Terminal</th>
+                                    <th>Weight (kg)</th>
+                                    <th>Price (₦)</th>
+                                    <th>Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for shipment in shipments %}
+                                    <tr>
+                                        <td>{{ shipment.tracking_id }}</td>
+                                        <td>{{ shipment.status|title }}</td>
+                                        <td>{{ shipment.current_terminal|default:"N/A" }}</td>
+                                        <td>{{ shipment.weight }}</td>
+                                        <td>{{ shipment.price }}</td>
+                                        <td>{{ shipment.updated_at|date:"F d, Y H:i" }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="6">No shipments found.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

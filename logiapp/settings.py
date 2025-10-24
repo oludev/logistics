@@ -27,10 +27,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Default session for users
+SESSION_COOKIE_NAME = "user_sessionid"
+
+# Override in admin
+from django.contrib import admin
+
+class CustomAdminSite(admin.AdminSite):
+    site_header = "Custom Admin"
+    site_title = "Custom Admin Portal"
+    index_title = "Welcome Admin"
+
+    def each_context(self, request):
+        request.session.set_test_cookie()
+        return super().each_context(request)
+
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +58,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "master.middleware.SeparateAdminSessionMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,8 +94,12 @@ WSGI_APPLICATION = 'logiapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'logis_db',
+        'USER': 'postgres',
+        'PASSWORD': 'superadmin',
+        'HOST': 'localhost',
+        'PORT': '5500',
     }
 }
 
@@ -116,9 +138,99 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles") 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "FastLogistics Admin",
+    "site_header": "FastLogistics",
+    "site_brand": "FastLogistics",
+    "site_logo": None,  # Add logo path if available
+    "welcome_sign": "Welcome to FastLogistics Admin Panel",
+    "copyright": "FastLogistics © 2025",
+    "search_model": ["auth.User", "master.Shipment"],
+    "user_avatar": None,
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
+    ],
+    "usermenu_links": [
+        {"model": "auth.user"},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "order_with_respect_to": ["auth", "master"],
+    "custom_links": {
+        "master": [{
+            "name": "Dashboard Stats",
+            "url": "admin:index",
+            "icon": "fas fa-chart-bar",
+            "permissions": ["auth.view_user"],
+        }],
+    },
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "master.Shipment": "fas fa-truck",
+        "master.Testimonial": "fas fa-comment",
+    },
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+    "related_modal_active": False,
+    "custom_css": None,
+    "custom_js": None,
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": False,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "language_chooser": False,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "default",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success",
+    },
+}
