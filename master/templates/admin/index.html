@@ -9,7 +9,7 @@
             <div class="card bg-primary text-white">
                 <div class="card-header">Total Users</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ total_users }}</h3>
+                   <h3 class="card-title" data-field="total_users">{{ total_users }}</h3>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
             <div class="card bg-info text-white">
                 <div class="card-header">Registered Admins</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ registered_admins }}</h3>
+                    <h3 class="card-title" data-field="registered_admins">{{ registered_admins }}</h3>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="card bg-success text-white">
                 <div class="card-header">Total Deliveries</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ total_deliveries }}</h3>
+                    <h3 class="card-title" data-field="total_deliveries">{{ total_deliveries }}</h3>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="card bg-warning text-dark">
                 <div class="card-header">Dispatched Packages</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ dispatched_packages }}</h3>
+                    <h3 class="card-title" data-field="dispatched_packages">{{ dispatched_packages }}</h3>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
             <div class="card bg-danger text-white">
                 <div class="card-header">Pending Deliveries</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ pending_deliveries }}</h3>
+                    <h3 class="card-title" data-field="pending_deliveries">{{ pending_deliveries }}</h3>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="card bg-success text-white">
                 <div class="card-header">Total Weight on Transit (kg)</div>
                 <div class="card-body">
-                    <h3 class="card-title">{{ total_weight_on_transit }}</h3>
+                    <h3 class="card-title" data-field="total_weight_on_transit">{{ total_weight_on_transit }}</h3>
                 </div>
             </div>
         </div>
@@ -103,4 +103,75 @@
 
     {{ block.super }}
 </div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    async function refreshDashboard() {
+        try {
+            const response = await fetch("{% url 'dashboard_stats' %}");
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+
+            if (data.error) {
+                console.error('Error:', data.error);
+                return;
+            }
+
+            // ✅ Update text in dashboard cards
+            document.querySelector(".card-title[data-field='total_users']").innerText = data.total_users;
+            document.querySelector(".card-title[data-field='registered_admins']").innerText = data.registered_admins;
+            document.querySelector(".card-title[data-field='total_deliveries']").innerText = data.total_shipments;
+            document.querySelector(".card-title[data-field='dispatched_packages']").innerText = data.dispatched_packages;
+            document.querySelector(".card-title[data-field='pending_deliveries']").innerText = data.pending_shipments;
+
+            // Optional: if you later want to track weight on transit
+            if (data.total_weight_on_transit !== undefined) {
+                document.querySelector(".card-title[data-field='total_weight_on_transit']").innerText = data.total_weight_on_transit;
+            }
+
+            // ✅ If your backend sends customer data
+            const tbody = document.querySelector("tbody");
+            if (tbody) {
+                tbody.innerHTML = "";
+                if (!data.customer_amounts || data.customer_amounts.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='2'>No customers with shipments.</td></tr>";
+                } else {
+                    data.customer_amounts.forEach(c => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${c.username}</td>
+                                <td>${parseFloat(c.total_amount || 0).toFixed(2)}</td>
+                            </tr>`;
+                    });
+                }
+            }
+        } catch (error) {
+            console.error("Dashboard update failed:", error);
+        }
+    }
+
+    // Run immediately and refresh every 10 seconds
+    refreshDashboard();
+    setInterval(refreshDashboard, 10000);
+});
+</script>
+
+
 {% endblock %}

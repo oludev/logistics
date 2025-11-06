@@ -8,6 +8,9 @@ from .forms import SignupForm, LoginForm
 from django.db.models import Sum, Count
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth.decorators import login_required, user_passes_test
+
+
 
 def index(request):
     testimonials = Testimonial.objects.all()
@@ -93,26 +96,39 @@ def admin_dashboard(request):
     }
     return render(request, 'master/admin_dashboard.html', context)
 
-@login_required
-def dashboard_stats(request):
-    if not request.user.is_staff:
-        return JsonResponse({'error': 'Access denied'}, status=403)
-    
-    total_users = User.objects.count()
-    registered_admins = User.objects.filter(is_staff=True).count()
-    total_deliveries = Shipment.objects.count()
-    dispatched_packages = Shipment.objects.exclude(status='pending').count()
-    pending_deliveries = Shipment.objects.filter(status='pending').count()
-    total_weight_on_transit = Shipment.objects.filter(status='on_transit').aggregate(total_weight=Sum('weight'))['total_weight'] or 0
-    customer_amounts = User.objects.annotate(total_amount=Sum('sent_shipments__price')).values('username', 'total_amount').order_by('-total_amount')
+@login_required(login_url='/admin/login/')
+@user_passes_test(lambda u: u.is_superuser)
 
-    data = {
-        'total_users': total_users,
-        'registered_admins': registered_admins,
-        'total_deliveries': total_deliveries,
-        'dispatched_packages': dispatched_packages,
-        'pending_deliveries': pending_deliveries,
-        'total_weight_on_transit': total_weight_on_transit,
-        'customer_amounts': list(customer_amounts),
-    }
-    return JsonResponse(data)
+def dashboard_stats(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Access denied'}, status=403)
+
+    try:
+        total_users = User.objects.count()
+        registered_admins = User.objects.filter(is_staff=True).count()
+        total_shipments = Shipment.objects.count()
+        dispatched_packages = Shipment.objects.filter(status__in=['on_transit', 'arrived', 'completed']).count()
+        pending_shipments = Shipment.objects.filter(status='pending').count()
+
+        today = timezone.now().date()
+        week_start = today - timedelta(days=today.weekday())
+        month_start = today.replace(day=1)
+
+        daily_dispatch = Shipment.objects.filter(created_at__date=today).count()
+        weekly_dispatch = Shipment.objects.filter(created_at__date__gte=week_start).count()
+        monthly_dispatch = Shipment.objects.filter(created_at__date__gte=month_start).count()
+
+        data = {
+            'total_users': total_users,
+            'registered_admins': registered_admins,
+            'total_shipments': total_shipments,
+            'dispatched_packages': dispatched_packages,
+            'pending_shipments': pending_shipments,
+            'daily_dispatch': daily_dispatch,
+            'weekly_dispatch': weekly_dispatch,
+            'monthly_dispatch': monthly_dispatch,
+        }
+
+        return JsonResponse(data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)})

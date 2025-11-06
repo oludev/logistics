@@ -9,3 +9,8 @@ document.addEventListener("scroll", () => {
     }
   });
 });
+
+const response = await fetch("{% url 'dashboard_stats' %}", {
+    headers: { 'X-CSRFToken': csrftoken },
+    credentials: 'same-origin'
+});

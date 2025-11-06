@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 import uuid
 
 class Testimonial(models.Model):
@@ -30,6 +31,9 @@ class Shipment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def get_absolute_url(self):
+        return reverse('tracking') 
+
     def save(self, *args, **kwargs):
         if not self.tracking_id:  # Check if tracking_id is empty
             print("Generating new tracking ID...")  # Debug print
@@ -38,3 +42,5 @@ class Shipment(models.Model):
 
     def __str__(self):
         return self.tracking_id
+    
+    
